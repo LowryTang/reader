@@ -1,0 +1,71 @@
+/*
+  Book List and Book Item
+ */
+.book-item
+  padding 10px
+  border 1px solid #D8D8D8
+  border-radius 3px
+  background #FFF
+  margin-bottom 30px
+  height 180px
+  .cover
+    cursor pointer
+    float left
+    border 1px solid #DDD
+    box-shadow rgba(0, 0, 0, 0.15) 0 1px 3px
+    &:hover
+      border-color #999
+  .book-desc
+    position relative
+    height 100%
+    margin-left 130px
+    padding 0 5px
+    color #545454
+    font-size 14px
+    color #999
+    .title
+      cursor pointer
+      color #000
+      font-size 17px
+      font-weight bold
+      line-height 30px
+      text-overflow ellipsis
+      white-space nowrap
+      overflow hidden
+      margin-right 20px
+      &:hover
+        text-decoration underline
+    .type
+      margin-bottom 3px
+      span
+        color #666
+        &:first-child
+          margin-right 20px
+    .short-intro
+      font-size 14px
+      margin-bottom 6px
+      max-height 80px
+      word-wrap break-word
+      overflow hidden
+    .last-chapter
+      position absolute
+      bottom 0
+      font-size 12px
+      span
+        color #666
+
+
+/*
+  BookOverview Component
+ */
+.book-overview
+  .modal-backdrop
+    &.left-fade
+      opacity 0
+    &.in
+      opacity .5
+  // .modal-dialog
+
+
+.left-fade
+  transition opacity .15s linear
