@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import {Grid, Row, Col, FormGroup, FormControl} from 'react-bootstrap'
+import { Grid, Row, Col, FormGroup, FormControl } from 'react-bootstrap'
 
 import * as BookActions from '../actions/BookActions.js'
 import BookList from '../components/BookList.js'
 import BookOverview from '../components/BookOverview.js'
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   state = {
     show: false
@@ -22,14 +19,19 @@ class Home extends Component {
     }
   }
 
-  openBookOveriew = (book) => {
+  openBookOverview = (book) => {
     console.log(book);
     this.props.actions.getBookDetailById(book._id);
-    this.setState({show: true});
+    this.props.actions.getBookChapters(book._id);
+    this.setState({ show: true });
+  }
+
+  close = () => {
+    this.setState({ show: false });
   }
 
   render() {
-    const {books, selectedBook} = this.props;
+    const { books, selectedBook } = this.props;
 
     return (
       <Grid className="home">
@@ -40,8 +42,8 @@ class Home extends Component {
             </FormGroup>
           </Col>
         </Row>
-        <BookList books={books} openBookOveriew={this.openBookOveriew}/>
-        <BookOverview show={this.state.show} book={selectedBook}/>
+        <BookList books={books} openBookOveriew={this.openBookOverview}/>
+        <BookOverview show={this.state.show} onHide={this.close} book={selectedBook}/>
       </Grid>
     );
   }

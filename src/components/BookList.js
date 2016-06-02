@@ -4,7 +4,7 @@ import {Grid, Row, Col, FormGroup, FormControl} from 'react-bootstrap'
 import BookItem from './BookItem.js'
 
 export default class BookList extends Component {
-  static props = {
+  static defaultProps = {
     books: [],
     openBookOveriew: function() {}
   }

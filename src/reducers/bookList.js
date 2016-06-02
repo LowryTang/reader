@@ -16,7 +16,11 @@ const initialState = {
     "latelyFollower": 588,
     "wordCount": 819779
   }],
-  selectedBook: {}
+  selectedBook: {
+    detail: {},
+    resources: [],
+    chapters: {}
+  }
 };
 
 export default function(state = initialState, action) {
@@ -27,7 +31,16 @@ export default function(state = initialState, action) {
       });
     case types.BOOK_DETAIL:
       return assign({}, state, {
-        selectedBook: action.book
+        selectedBook: {
+          detail: action.book
+        }
+      });
+    case types.BOOK_CHAPTERS:
+      return assign({}, state, {
+        selectedBook: {
+          resources: action.resources,
+          chapters: action.chapters
+        }
       });
     default:
       return state;
