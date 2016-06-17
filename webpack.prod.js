@@ -7,9 +7,9 @@ module.exports = {
     './src/index'
   ],
   output: {
-    path: path.join(__dirname, 'static'),
+    path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/public/'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -18,7 +18,8 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify("production")
-      }
+      },
+      "__PROD__": true
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {

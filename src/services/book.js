@@ -1,6 +1,11 @@
 import request from '../lib/request.js'
-// const host = 'http://api.zhuishushenqi.com/';
-const host = 'http://localhost:3000/api/v1';
+import config from '../config.js'
+
+let host = config.dev_host;
+if (__PROD__) {
+  host = config.prod_host;
+}
+
 
 const BookService = {
   searchBook(name) {
@@ -30,7 +35,6 @@ const BookService = {
       return res.data.chapter.body;
     });
   }
-
 };
 
 module.exports = BookService;

@@ -13,7 +13,7 @@ export default class Setting extends Component {
     return (
       <div className="setting">
         <AutoAffix viewportOffsetTop={15}>
-          <div className="reader-menu">
+          <div className="read-menu">
             <div className="menu-item">
               <Glyphicon glyph="list-alt"/>
               <div>目录</div>
