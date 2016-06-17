@@ -15,12 +15,7 @@ const initialState = {
     "retentionRatio": 52.55,
     "latelyFollower": 588,
     "wordCount": 819779
-  }],
-  selectedBook: {
-    detail: {},
-    resources: [],
-    chapters: {}
-  }
+  }]
 };
 
 export default function(state = initialState, action) {
@@ -28,19 +23,6 @@ export default function(state = initialState, action) {
     case types.SEARCH_BOOK:
       return assign({}, state, {
         books: action.books
-      });
-    case types.BOOK_DETAIL:
-      return assign({}, state, {
-        selectedBook: {
-          detail: action.book
-        }
-      });
-    case types.BOOK_CHAPTERS:
-      return assign({}, state, {
-        selectedBook: {
-          resources: action.resources,
-          chapters: action.chapters
-        }
       });
     default:
       return state;

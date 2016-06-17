@@ -3,7 +3,7 @@ var debug = require('debug')('reader:controller');
 var axios = require('axios');
 
 var request = axios.create({
-  baseURL: 'http://api.zhuishushenqi.com',
+  baseURL: 'http://42.62.26.167',
   headers: {
     'X-Device-Id': '631cf212b409f949264fad9ba1ba1daa',
     'X-User-Agent': 'YouShaQi/2.24.24',
@@ -15,9 +15,11 @@ var request = axios.create({
 var controller = {
   searchBooks(req, res, next) {
     var query = req.query.query;
-    debug('search keyword is %s', query);
+    debug('search keyword is %s.', query);
     request.get('/book/fuzzy-search', { params: { query } }).then(result => {
+      debug('finish api call.');
       res.send(result.data);
+      debug('send out response.');
     }).catch(err => next);
   },
 
@@ -49,6 +51,7 @@ var controller = {
     var id = req.params.id;
     debug('book resource is %s', id);
     request.get('/toc/' + id, { params: { view: 'chapters' } }).then(result => {
+      debug('finish api call');
       res.send(result.data);
     }).catch(err => next);
   },

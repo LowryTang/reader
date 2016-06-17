@@ -32,7 +32,7 @@ module.exports = {
   module: {
     loaders: [
       {test: /\.js$/, loaders: ['react-hot', 'babel'], exclude: /node_modules/},
-      {test: /\.styl$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!autoprefixer-loader!stylus-loader")}
+      {test: /\.styl$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!stylus-loader")}
     ]
   }
 };

@@ -4,7 +4,7 @@ import BookService from '../services/book.js'
 export function searchBook(name) {
   return dispatch => {
     return BookService.searchBook(name).then(res => {
-      dispatch({type: types.SEARCH_BOOK, books: res.data.books})
+      dispatch({type: types.SEARCH_BOOK, books: res.data.books});
     });
   }
 }
@@ -12,7 +12,7 @@ export function searchBook(name) {
 export function getBookDetailById(id) {
   return dispatch => {
     return BookService.getBookDetailById(id).then(res => {
-      dispatch({type: types.BOOK_DETAIL, book: res.data})
+      dispatch({type: types.BOOK_DETAIL, book: res.data});
     });
   }
 }
@@ -20,12 +20,23 @@ export function getBookDetailById(id) {
 export function getBookChapters(id) {
   return dispatch => {
     return BookService.getBookResourcesById(id).then(res => {
-      let resources = res.data.filter((item) => {
-        return item.source !== 'zhuishuvip';
-      });
+      let resources = res.data || [];
+      if (resources.length > 1) {
+        resources = resources.filter((item) => {
+          return item.source !== 'zhuishuvip';
+        });
+      }
       BookService.getBookChaptersByResource(resources[0]._id).then(res => {
-        dispatch({type: types.BOOK_CHAPTERS, resources, chapters: res.data})
+        dispatch({type: types.BOOK_CHAPTERS, resources, chapters: res.data});
       })
     });
+  }
+}
+
+export function getChapterContent(url) {
+  return dispatch => {
+    return BookService.getChapterContent(url).then(data => {
+      dispatch({type: types.CHAPTER_CONTENT, chapterContent: data});
+    })
   }
 }

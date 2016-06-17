@@ -30,6 +30,10 @@ class Home extends Component {
     this.setState({ show: false });
   }
 
+  goToReadPage = (book) => {
+    this.props.history.push();
+  }
+
   render() {
     const { books, selectedBook } = this.props;
 
@@ -43,7 +47,7 @@ class Home extends Component {
           </Col>
         </Row>
         <BookList books={books} openBookOveriew={this.openBookOverview}/>
-        <BookOverview show={this.state.show} onHide={this.close} book={selectedBook}/>
+        <BookOverview show={this.state.show} onHide={this.close} book={selectedBook} goToReadPage={this.goToReadPage}/>
       </Grid>
     );
   }
@@ -52,7 +56,7 @@ class Home extends Component {
 function mapStateToProps(state) {
   return {
     books: state.bookList.books,
-    selectedBook: state.bookList.selectedBook
+    selectedBook: state.selectedBook
   };
 }
 function mapDispatchToProps(dispatch) {

@@ -21,6 +21,14 @@ const BookService = {
   getBookChaptersByResource(resourceId) {
     const url = `${host}/resources/${resourceId}`;
     return request.get(url);
+  },
+
+  getChapterContent(chapterUrl) {
+    chapterUrl = encodeURIComponent(chapterUrl);
+    const url = `${host}/chapters/${chapterUrl}`;
+    return request.get(url).then(res => {
+      return res.data.chapter.body;
+    });
   }
 
 };

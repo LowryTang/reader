@@ -6,22 +6,22 @@ import cx from 'classnames'
 import BaseModal from 'react-overlays/lib/Modal'
 import Transition from 'react-overlays/lib/Transition'
 
+import ChaperList from './ChapterList.js'
+
 export default class BookOverview extends Component {
 
   static defaultProps = {
     book: {},
-    onHide: function () {
-    }
+    onHide: function () {}
   }
 
   state = {
-    modalStyle: {
-      display: 'block'
-    }
+    modalStyle: { display: 'block' }
   }
 
   render() {
     let { book, ...props } = this.props;
+    let { detail, resources, chapters } = book;
     return (
       <BaseModal
         show={props.show}
@@ -35,15 +35,20 @@ export default class BookOverview extends Component {
       >
         <div className="modal" onClick={this.handleDialogClick} style={this.state.modalStyle}>
           <div className="modal-dialog book-dialog">
-            <div className="modal-content book-content">
-              <div className="book-header">
-                <span>{book.title}</span>
-              </div>
-              <div className="book-detail">
-                {book.longIntro}
-              </div>
-              <div className="book-chapter">
-
+            <div className="modal-content">
+              <div className="book-content">
+                <div className="book-header">
+                  <h2>{detail.title}</h2>
+                  <div>
+                    <span><a>{detail.author}</a></span>|<span>{detail.minorCate}</span>|<span>{detail.wordCount}</span>
+                  </div>
+                </div>
+                <div className="book-detail">
+                  <p>{detail.longIntro}</p>
+                </div>
+                <div className="book-chapter">
+                  <ChaperList data={chapters} />
+                </div>
               </div>
             </div>
           </div>
@@ -60,55 +65,23 @@ export default class BookOverview extends Component {
     this.props.onHide();
   }
 
-  handleWindowResize() {
-    this.setState(this._getStyles());
-  }
-
   _onShow = (...args) => {
-    events.on(window, 'resize', this.handleWindowResize);
-
-    // this.setState(
-    //   this._getStyles()
-    // );
-
     if (this.props.onEntering) {
       this.props.onEntering(...args);
     }
   }
 
   _onHide = (...args) => {
-    events.off(window, 'resize', this.handleWindowResize);
-
     if (this.props.onExited) {
       this.props.onExited(...args);
     }
-  }
-
-  _getStyles() {
-    if (!canUseDOM) {
-      return {};
-    }
-
-    // let node = ReactDOM.findDOMNode(this._modal);
-    // let doc = ownerDocument(node);
-
-    // let scrollHt = node.scrollHeight;
-    // let bodyIsOverflowing = isOverflowing(ReactDOM.findDOMNode(this.props.container || doc.body));
-    // let modalIsOverflowing = scrollHt > doc.documentElement.clientHeight;
-
-    // return {
-    //   modalStyles: {
-    //     paddingRight: bodyIsOverflowing && !modalIsOverflowing ? getScrollbarSize() : void 0,
-    //     paddingLeft: !bodyIsOverflowing && modalIsOverflowing ? getScrollbarSize() : void 0
-    //   }
-    // };
   }
 }
 
 class LeftFade extends Component {
   static defaultProps = {
     in: false,
-    timeout: 300,
+    timeout: 400,
     unmountOnExit: false,
     transitionAppear: false
   }
@@ -129,8 +102,3 @@ class LeftFade extends Component {
     );
   }
 }
-/*
- <div className="book-overview">
- <BaseModal />
- </div>
- */
