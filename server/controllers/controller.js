@@ -1,6 +1,7 @@
 var express = require('express');
 var debug = require('debug')('reader:controller');
 var axios = require('axios');
+var rq = require('request');
 
 var request = axios.create({
   baseURL: 'http://api.zhuishushenqi.com',
@@ -15,12 +16,29 @@ var request = axios.create({
 var controller = {
   searchBooks(req, res, next) {
     var query = req.query.query;
-    debug('search keyword is %s.', query);
-    request.get('/book/fuzzy-search', { params: { query } }).then(result => {
-      debug('finish api call.');
-      res.send(result.data);
-      debug('send out response.');
-    }).catch(err => next);
+    var options = {
+      uri: 'http://api.zhuishushenqi.com/book/fuzzy-search',
+      qs: { query },
+      method:"GET",
+      encoding: null,
+      headers: {
+        'X-Device-Id': '631cf212b409f949264fad9ba1ba1daa',
+        'X-User-Agent': 'YouShaQi/2.24.24',
+        'User-Agent': 'YouShaQi/2.24.24',
+        'Content-Type': 'application/json'
+      }
+    };
+    debug('search keyword is %s.', query, options);
+    rq(options, function(err, response, body) {
+      debug("down", typeof body);
+      res.send(body);
+    });
+
+    // request.get('/book/fuzzy-search', { params: { query } }).then(result => {
+    //   debug('finish api call.');
+    //   res.send(result.data);
+    //   debug('send out response.');
+    // }).catch(err => next);
   },
 
   searchBooksByAuthor(req, res, next) {
@@ -96,7 +114,7 @@ var controller = {
     var gender = req.query.gender || false;
     var major = req.params.name || false;
     if (gender === false || major === false) {
-      throw {status: 400, message: 'miss paramters'};
+      throw { status: 400, message: 'miss paramters' };
     }
     gender = encodeURIComponent(gender);
     var type = req.query.type || 'hot';
