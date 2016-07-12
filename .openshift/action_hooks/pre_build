@@ -1,0 +1,3 @@
+#!/bin/bash
+
+export NPM_CONFIG_PRODUCTION=false
