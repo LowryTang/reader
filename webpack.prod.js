@@ -12,7 +12,7 @@ module.exports = {
     publicPath: '/public/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractTextPlugin('bundle.css'),
     //Used to include index.html in build folder
     new webpack.DefinePlugin({
@@ -23,9 +23,11 @@ module.exports = {
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: true,
+        warnings: false,
         dead_code: true,
-        drop_console: true
+        drop_console: true,
+        unused: true,
+        if_return: true
       }
     }),
     new webpack.NoErrorsPlugin(),
