@@ -1,3 +1,6 @@
 #!/bin/bash
 
-# node $OPENSHIFT_REPO_DIR/node_modules/webpack/bin/webpack.js --config webpack.prod.js -p
+echo Start building code
+
+node $OPENSHIFT_REPO_DIR/node_modules/webpack/bin/webpack.js --config webpack.prod.js -p
+
