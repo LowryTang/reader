@@ -2,5 +2,5 @@
 
 echo Start pre_build
 
-npm install
+# npm install
 
