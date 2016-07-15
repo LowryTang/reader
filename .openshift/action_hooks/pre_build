@@ -2,5 +2,6 @@
 
 echo Start pre_build
 
-# npm install
+cd $OPENSHIFT_REPO_DIR
+npm install
 
