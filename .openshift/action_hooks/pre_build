@@ -1,3 +1,6 @@
 #!/bin/bash
 
-# export NPM_CONFIG_PRODUCTION=false
+echo Start pre_build
+
+npm install
+
