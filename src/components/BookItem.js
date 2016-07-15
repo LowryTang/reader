@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Grid, Row, Col, FormGroup, FormControl} from 'react-bootstrap'
+import bookService from '../services/book.js'
 
 export default class BookItem extends Component {
   static defaultProps = {
@@ -13,7 +14,7 @@ export default class BookItem extends Component {
       <Col lg={6}>
         <div className="book-item">
           <div className="cover">
-            <img width="120" height="150" src={data.cover && data.cover.replace('/agent/', '')}/>
+            <img width="120" height="150" src={bookService.getBookImage(data.cover)}/>
           </div>
           <div className="book-desc">
             <div className="title" onClick={this.props.openBookOveriew.bind(this, data)}>{data.title}</div>
