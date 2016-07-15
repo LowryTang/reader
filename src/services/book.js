@@ -43,7 +43,6 @@ const BookService = {
       return null;
     }
     url = url.replace('/agent/', '');
-    // url = encodeURIComponent(url);
     return image_service + '?uri=' + url;
   }
 };
