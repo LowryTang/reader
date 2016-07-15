@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo Start pre_build
-
-cd $OPENSHIFT_REPO_DIR
-npm install
-
