@@ -1,13 +1,15 @@
 import request from '../lib/request.js'
 import config from '../config.js'
 
-let book_service = config.base_host + config.book_endpoint;
-let chapter_service = config.base_host + config.chapter_endpoint;
-let image_service = config.base_host + config.image_endpoint;
+let host = config.dev_host;
+
 if (__PROD__) {
   host = config.prod_host;
 }
 
+let book_service = host + config.book_endpoint;
+let chapter_service = host + config.chapter_endpoint;
+let image_service = host + config.image_endpoint;
 
 const BookService = {
   searchBook(name) {
