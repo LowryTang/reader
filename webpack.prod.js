@@ -4,7 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: [
-    './src/index'
+    './client/index'
   ],
   output: {
     path: path.join(__dirname, 'public'),
@@ -34,8 +34,9 @@ module.exports = {
   ],
   module: {
     loaders: [
-      {test: /\.js$/, loaders: ['babel'], exclude: /node_modules/},
-      {test: /\.styl$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!stylus-loader")}
+      { test: /\.js$/, loaders: ['babel'], exclude: /node_modules/ },
+      { test: /\.styl$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!stylus-loader") },
+      { test: /\.(png|jpg|gif)$/, loader: "url-loader", query: { limit: 8192, name: '[path][name].[ext]' } },
     ]
   }
 };

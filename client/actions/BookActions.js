@@ -1,0 +1,44 @@
+import * as types from '../constants/ActionTypes';
+import BookService from '../services/book.js'
+
+export function searchBook(name, page = 0) {
+  return dispatch => {
+    dispatch({type: types.START_LOADING, clean: page === 0 ? true : false});
+    return BookService.searchBook(name, page).then(res => {
+      dispatch({type: types.SEARCH_BOOK, books: res.data.books, keyword: name});
+    });
+  }
+}
+
+export function getBookDetailById(id) {
+  return dispatch => {
+    dispatch({type: types.START_LOADING});
+    BookService.getBookDetailById(id).then(res => {
+      dispatch({type: types.BOOK_DETAIL, book: res.data});
+    });
+  }
+}
+
+export function getBookChapters(id) {
+  return dispatch => {
+    return BookService.getBookResourcesById(id).then(res => {
+      let resources = res.data || [];
+      if (resources.length > 1) {
+        resources = resources.filter((item) => {
+          return item.source !== 'zhuishuvip';
+        });
+      }
+      BookService.getBookChaptersByResource(resources[0]._id).then(res => {
+        dispatch({type: types.BOOK_CHAPTERS, resources, chapters: res.data});
+      })
+    });
+  }
+}
+
+export function getChapterContent(url) {
+  return dispatch => {
+    return BookService.getChapterContent(url).then(data => {
+      dispatch({type: types.CHAPTER_CONTENT, chapterContent: data});
+    })
+  }
+}

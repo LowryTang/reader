@@ -8,7 +8,7 @@ module.exports = {
     app: [
       'webpack-dev-server/client?http://localhost:3030',
       'webpack/hot/only-dev-server',
-      './src/index.js'
+      './client/index.js'
     ]
   },
   output: {
@@ -32,7 +32,7 @@ module.exports = {
     loaders: [
       { test: /\.js$/, loaders: ['react-hot', 'babel'], exclude: /node_modules/ },
       { test: /\.styl$/, loader: "style-loader!css-loader!stylus-loader" },
-      { test: /\.(png|jpg)$/, loader: "url-loader", query: { limit: 8192, name: '[path][name].[ext]' } },
+      { test: /\.(png|jpg|gif)$/, loader: "url-loader", query: { limit: 8192, name: '[path][name].[ext]' } }
     ]
   }
 };
