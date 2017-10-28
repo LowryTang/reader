@@ -1,24 +1,29 @@
 var express = require('express')
 var router = express.Router()
-var controller = require('./controllers/controller.js')
+const proxy = require('http-proxy-middleware')
 
-/* GET home page. */
+router.use(
+  '/proxy',
+  proxy({
+    target: 'http://api.zhuishushenqi.com',
+    pathRewrite: { '^/api/v1/proxy': '' },
+    proxyTimeout: 60000,
+    logLevel: 'debug',
+    changeOrigin: true,
+    secure: false
+  })
+)
 
-router.get('/books/search', controller.searchBooks)
-router.get('/books/author', controller.searchBooksByAuthor)
-router.get('/books/tag', controller.searchBooksByTag)
-
-router.get('/images', controller.getImage)
-
-router.get('/books/:id', controller.getBookDetail)
-router.get('/books/:id/resources', controller.getBookResources)
-router.get('/resources/:id', controller.getChaptersByResouceId)
-router.get('/chapters', controller.getChapterContent)
-
-router.get('/ranks', controller.getRankCategory)
-router.get('/ranks/:id', controller.getRankList)
-
-router.get('/categories', controller.getCategories)
-router.get('/categories/:name', controller.getBooksByCategory)
+router.use(
+  '/chapter',
+  proxy({
+    target: 'http://chapter2.zhuishushenqi.com/chapter',
+    pathRewrite: { '^/api/v1/chapter': '' },
+    proxyTimeout: 60000,
+    logLevel: 'debug',
+    changeOrigin: true,
+    secure: false
+  })
+)
 
 module.exports = router
